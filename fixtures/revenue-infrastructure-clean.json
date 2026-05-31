@@ -1,0 +1,38 @@
+[
+  {
+    "id": "rev-clean-01",
+    "systemName": "Operator-grade revenue spine",
+    "vendor": "Kinetic Gain Demo",
+    "domain": "CRM_HYGIENE",
+    "owner": "RevOps",
+    "claim": "Pipeline hygiene is current, owned, and forecast-safe.",
+    "observedState": "Lifecycle fields are governed and ownership changes stay inside one workflow.",
+    "evidenceState": "CURRENT",
+    "reviewStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-05-30T09:00:00Z",
+    "annualSpendUsd": 95000,
+    "revenueAtRiskUsd": 25000,
+    "recoverableRevenueUsd": 12000,
+    "integrationCount": 6,
+    "boardPriority": "WATCH",
+    "notes": ["Synthetic clean record for demo comparison."]
+  },
+  {
+    "id": "rev-clean-02",
+    "systemName": "Operator-grade attribution layer",
+    "vendor": "Kinetic Gain Demo",
+    "domain": "ATTRIBUTION",
+    "owner": "Growth analytics",
+    "claim": "Attribution assumptions are current and named.",
+    "observedState": "Paid, organic, and partner logic are documented and current.",
+    "evidenceState": "CURRENT",
+    "reviewStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-05-30T09:00:00Z",
+    "annualSpendUsd": 85000,
+    "revenueAtRiskUsd": 18000,
+    "recoverableRevenueUsd": 9000,
+    "integrationCount": 5,
+    "boardPriority": "WATCH",
+    "notes": ["Synthetic clean record for demo comparison."]
+  }
+]

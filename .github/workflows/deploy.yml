@@ -41,16 +41,37 @@ jobs:
       - name: Verify build output
         run: |
           if [ -d "site" ]; then DEPLOY_DIR="site"
+          elif [ -d "dist-static" ]; then DEPLOY_DIR="dist-static"
+          elif [ -d "public" ]; then DEPLOY_DIR="public"
+          elif [ -d "out" ]; then DEPLOY_DIR="out"
+          elif [ -d "_site" ]; then DEPLOY_DIR="_site"
           elif [ -d "dist" ]; then DEPLOY_DIR="dist"
           elif [ -d "build" ]; then DEPLOY_DIR="build"
           else
-            echo "FAIL: no site/, dist/, or build/ produced"
+            echo "FAIL: no site/, dist-static/, public/, out/, _site/, dist/, or build/ produced"
             exit 1
           fi
           echo "DEPLOY_DIR=$DEPLOY_DIR" >> $GITHUB_ENV
           test -f "$DEPLOY_DIR/index.html" || (echo "FAIL: $DEPLOY_DIR/index.html missing" && exit 1)
 
-      - name: FTP Deploy
+      - name: FTP Deploy (attempt 1)
+        id: ftp_first
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./${{ env.DEPLOY_DIR }}/
+          server-dir: /revenue/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/node_modules/**
+
+      - name: Retry FTP Deploy if first attempt failed
+        if: steps.ftp_first.outcome == 'failure'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}

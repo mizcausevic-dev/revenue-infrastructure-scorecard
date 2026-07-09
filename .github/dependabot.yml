@@ -1,32 +1,36 @@
-# Dependabot — weekly supply-chain freshness.
-# Generated 2026-06-01 as part of the org-wide security sweep.
-# Security advisories at any severity OPEN their own PRs immediately (default).
-# Routine version bumps batch per ecosystem-week into one PR.
+# Dependabot — monthly grouped version updates.
+# Security updates stay on Dependabot security updates' default behavior.
+# Group rules explicitly apply only to version updates.
 version: 2
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
       day: "monday"
       time: "07:30"
       timezone: "America/New_York"
-    open-pull-requests-limit: 3
+    open-pull-requests-limit: 2
     labels:
       - "dependencies"
       - "github-actions"
     commit-message:
       prefix: "ci"
       include: "scope"
+    groups:
+      github-actions-monthly:
+        applies-to: "version-updates"
+        patterns:
+          - "*"
 
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
       day: "monday"
-      time: "07:00"
+      time: "07:45"
       timezone: "America/New_York"
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 2
     labels:
       - "dependencies"
       - "supply-chain"
@@ -34,7 +38,13 @@ updates:
       prefix: "deps"
       include: "scope"
     groups:
-      dev-dependencies:
-        patterns: ["*"]
+      npm-production-monthly:
+        applies-to: "version-updates"
+        dependency-type: "production"
+        patterns:
+          - "*"
+      npm-development-monthly:
+        applies-to: "version-updates"
         dependency-type: "development"
-        update-types: ["minor", "patch"]
+        patterns:
+          - "*"
